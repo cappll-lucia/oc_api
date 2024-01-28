@@ -1,0 +1,36 @@
+
+### GET ALL
+GET http://localhost:3000/api/colors
+
+### GET ONE
+GET http://localhost:3000/api/colors/2
+
+### ADD
+POST http://localhost:3000/api/colors
+Content-Type: application/json
+
+{
+    "name": "Negro",
+    "background": "#000"
+}
+
+### UPDATE
+PUT http://localhost:3000/api/colors/3
+Content-Type: application/json
+
+{
+    "name": "Blanco",
+    "background": "#FF"
+}
+
+
+### UPDATE
+PATCH  http://localhost:3000/api/colors/3
+Content-Type: application/json
+
+{
+    "background": "#FFFF"
+}
+
+###REMOVE
+DELETE http://localhost:3000/api/colors/2
