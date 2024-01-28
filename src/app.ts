@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import dotenv from 'dotenv';
 import express from 'express';
 import { orm, syncSchema } from './shared/db/conn.orm.js';
 import { RequestContext } from '@mikro-orm/core';
@@ -8,7 +9,7 @@ import { colorRouter } from './color/color.routes.js';
 import { categoryRouter } from './category/category.routes.js';
 import { brandRouter } from './brand/brand.routes.js';
 
-
+dotenv.config();
 
 const app = express();
 
@@ -30,7 +31,7 @@ app.use((_, res)=>{
 
 await syncSchema();
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, ()=>{
     console.log(`Server running at http://localhost:${PORT}`)
 })
