@@ -1,0 +1,36 @@
+
+### GET ALL
+GET http://localhost:3000/api/brands
+
+### GET ONE
+GET http://localhost:3000/api/brands/1
+
+### ADD
+POST http://localhost:3000/api/brands
+Content-Type: application/json
+
+{
+    "name": "Rusty"
+}
+
+### UPDATE
+PUT http://localhost:3000/api/brands/2
+Content-Type: application/json
+
+{
+    "createdAt": "2024-01-27T12:33:28.000Z",
+    "updatedAt": "2024-01-27T12:33:28.000Z",
+    "name": "Wanama",
+    "logo": null
+}
+
+### UPDATE
+PATCH http://localhost:3000/api/brands/2
+Content-Type: application/json
+
+{
+    "name": "Wanama"
+}
+
+### REMOVE
+DELETE http://localhost:3000/api/brands/2

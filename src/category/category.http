@@ -1,0 +1,37 @@
+
+### GET ALL
+GET http://localhost:3000/api/categories
+
+### GET ONE
+GET http://localhost:3000/api/categories/2
+
+### ADD
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+
+{
+    "name": "Anteojos Recetados"
+}
+
+### UPDATE
+PUT http://localhost:3000/api/categories/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "products": [],
+    "createdAt": "2024-01-27T11:38:46.340Z",
+    "updatedAt": "2024-01-27T11:38:46.341Z",
+    "name": "Anteojos de Sssssol"
+}
+
+### UPDATE
+PATCH  http://localhost:3000/api/categories/1
+Content-Type: application/json
+
+{
+    "name": "Anteojos de Sol"
+}
+
+###REMOVE
+DELETE http://localhost:3000/api/categories/2

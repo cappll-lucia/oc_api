@@ -1,0 +1,38 @@
+# coverage reports
+coverage
+
+# API keys and secrets
+.env
+docker.txt
+
+# dependencies
+node_modules
+node_modules/*
+package-lock.json
+
+# OS metadata
+.DS_Store
+Thumbs.db
+```
+# ignore built ts files
+dist/**/*
+
+# ormconfig file
+src/shared/db/conn.orm.ts
+
+
+
+# vscode
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+## local jistory for vscode
+.history/
+
+# built vscode extensions
+*.vsix
