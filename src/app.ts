@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { orm, syncSchema } from './shared/db/conn.orm.js';
 import { RequestContext } from '@mikro-orm/core';
+import { userRouter } from './user/user.routes.js';
 import { productRouter } from './product/product.routes.js';
 import { promotionRouter } from './promotion/promotion.routes.js';
 import { colorRouter } from './color/color.routes.js';
@@ -19,6 +20,7 @@ app.use((req, res, next)=>{
     RequestContext.create(orm.em, next);
 })
 
+app.use('/api/users', userRouter);
 app.use('/api/products', productRouter); 
 app.use('/api/categories', categoryRouter); 
 app.use('/api/brands', brandRouter); 

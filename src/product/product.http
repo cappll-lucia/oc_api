@@ -1,6 +1,7 @@
 
 ### GET ALL
 GET http://localhost:3000/api/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1YW5jYXBwbGxAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiSnVhbiBDcnV6IiwibGFzdE5hbWUiOiJDYXBwZWxsaW5pIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MDY1NjcyMjAsImV4cCI6MTcwNjU2NzIzMH0.MngctOR7wpZvwz1ngK5I2mfW0nX-cxr0h2POUzTqOu8
 
 ### GET ONE
 GET http://localhost:3000/api/products/1
