@@ -8,29 +8,33 @@ GET http://localhost:3000/api/brands/1
 ### ADD
 POST http://localhost:3000/api/brands
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
 
 {
-    "name": "Rusty"
+    "name": "MDC"
 }
 
 ### UPDATE
 PUT http://localhost:3000/api/brands/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
 
 {
     "createdAt": "2024-01-27T12:33:28.000Z",
     "updatedAt": "2024-01-27T12:33:28.000Z",
-    "name": "Wanama",
+    "name": "MDC",
     "logo": null
 }
 
 ### UPDATE
 PATCH http://localhost:3000/api/brands/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
 
 {
     "name": "Wanama"
 }
 
 ### REMOVE
-DELETE http://localhost:3000/api/brands/2
+DELETE http://localhost:3000/api/brands/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0

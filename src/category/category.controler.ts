@@ -67,10 +67,17 @@ export async function remove(req: Request, res: Response) {
     try{
         const id = Number.parseInt(req.params.id);
         const category = em.getReference(Category, id);
-        em.removeAndFlush(category);
-        res.status(200).send({message: `Category with id=${id} successfully deleted`})
+        try {
+            await em.removeAndFlush(category);
+            res.status(200).json({message: `Category with id=${id} successfully deleted.`})
+        } catch (error: any) {
+            if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.sqlState === '23000') {
+                res.status(400).json({ message: 'Unable to delete category due to associated products' });
+            } else {
+                throw error; 
+            }
+        }
     }catch(error: any){
         res.status(500).json({message: 'Something went wrong while removing category.', error: error.message})
     }
-    
 }

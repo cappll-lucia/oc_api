@@ -20,7 +20,7 @@ export async function login(req: Request, res: Response, next: NextFunction){
                 lastName: user.lastName,
                 role: user.role,
             }, process.env.JWT_SECRET_KEY!,{
-                expiresIn: `${Math.floor(Date.now() / 1000) + (2*60*60)}`
+                expiresIn: 10800
             })
             res.status(200).json({message: 'Adentro!', token})
         }else{

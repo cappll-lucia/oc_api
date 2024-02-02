@@ -8,14 +8,16 @@ GET http://localhost:3000/api/categories/2
 ### ADD
 POST http://localhost:3000/api/categories
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
 
 {
-    "name": "Anteojos Recetados"
+    "name": "Anteojos "
 }
 
 ### UPDATE
 PUT http://localhost:3000/api/categories/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
 
 {
     "id": 1,
@@ -28,10 +30,12 @@ Content-Type: application/json
 ### UPDATE
 PATCH  http://localhost:3000/api/categories/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
 
 {
     "name": "Anteojos de Sol"
 }
 
 ###REMOVE
-DELETE http://localhost:3000/api/categories/2
+DELETE http://localhost:3000/api/categories/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0

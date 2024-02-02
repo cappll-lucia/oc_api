@@ -66,10 +66,18 @@ export async function remove(req: Request, res: Response) {
     try{
         const id = Number.parseInt(req.params.id);
         const brand = em.getReference(Brand, id);
-        em.removeAndFlush(brand);
-        res.status(200).json({message: `Brand with id=${id} successfully deleted.`})
+        try {
+            await em.removeAndFlush(brand);
+            res.status(200).json({message: `Brand with id=${id} successfully deleted.`})
+        } catch (error: any) {
+            if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.sqlState === '23000') {
+                res.status(400).json({ message: 'Unable to delete brand due to associated products' });
+            } else {
+                throw error; 
+            }
+        }
     }catch(error: any){
         res.status(500).json({message: 'Something went wrong while removing brand.', error: error.message})
     }
-    
 }
+

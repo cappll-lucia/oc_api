@@ -1,7 +1,6 @@
 
 ### GET ALL
 GET http://localhost:3000/api/products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1YW5jYXBwbGxAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiSnVhbiBDcnV6IiwibGFzdE5hbWUiOiJDYXBwZWxsaW5pIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MDY1NjcyMjAsImV4cCI6MTcwNjU2NzIzMH0.MngctOR7wpZvwz1ngK5I2mfW0nX-cxr0h2POUzTqOu8
 
 ### GET ONE
 GET http://localhost:3000/api/products/1
@@ -9,33 +8,37 @@ GET http://localhost:3000/api/products/1
 ### CREATE
 POST http://localhost:3000/api/products
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
+
 
 {
-    "name": "JA-JO",
+    "name": "MC 80029",
     "description": "Montura: Pulido Oro",
-    "price": "160000",
-    "stock": 1,
-    "category": 1,
-    "brand": 1
+    "price": 165000,
+    "stock": 5,
+    "category": 5,
+    "brand": 4
 }
 
 ### UPDATE
-PUT http://localhost:3000/api/products/2
+PUT http://localhost:3000/api/products/3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
+
 
 {
     "name": "JA-JO",
     "description": "Montura: Pulido Oro",
     "price": 165000,
-    "stock": 2,
-    "colors": [1],
+    "stock": 5,
     "category": 1,
     "brand": 1
 }
 
 ### UPDATE
-PATCH http://localhost:3000/api/products/2
+PATCH http://localhost:3000/api/products/3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
 
 {
     "name": "JA - JO"
@@ -43,4 +46,6 @@ Content-Type: application/json
 
 
 ### REMOVE
-DELETE http://localhost:3000/api/products/2
+DELETE http://localhost:3000/api/products/2.
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0
+
