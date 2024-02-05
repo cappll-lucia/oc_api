@@ -1,0 +1,53 @@
+
+### GET ALL
+GET http://localhost:3000/api/promotions
+
+### GET ONGOING
+GET http://localhost:3000/api/promotions/ongoing
+
+### GET ONGOING FOR PRODUCT
+GET http://localhost:3000/api/promotions/ongoing/1
+
+### FIND ONE
+GET http://localhost:3000/api/promotions/4
+
+### CREATE
+POST http://localhost:3000/api/promotions
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjk2NjUwMCwiZXhwIjoxNzA2OTc3MzAwfQ.WZlBdUP4YqYHxvaBwlRXYw5-_FUeCAfd6Rk0W9WFoMI
+
+{
+    "title": "School Back",
+    "validFrom": "2024-02-01",
+    "validUntil": "2024-03-31",
+    "discountPercent": 0.15
+}
+
+### UPDATE
+PUT http://localhost:3000/api/promotions/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjk2NjUwMCwiZXhwIjoxNzA2OTc3MzAwfQ.WZlBdUP4YqYHxvaBwlRXYw5-_FUeCAfd6Rk0W9WFoMI
+
+{
+    "title": "Summer Party!",
+    "description": "Descuentos todo el verano",
+    "validFrom": "2023-12-10",
+    "validUntil": "2024-02-28",
+    "discountPercent": 0.20
+}
+
+
+### UPDATE
+PATCH http://localhost:3000/api/promotions/17
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNzEzNTQyMCwiZXhwIjoxNzA3MTQ2MjIwfQ.Bkj-iojsm79iZDQe4lQ_FNkXad1LdptBH-qUE9B8Rw0
+
+{
+    "validUntil": "2024-03-31"
+}
+
+
+
+### DELETE
+DELETE  http://localhost:3000/api/promotions/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjk2NjUwMCwiZXhwIjoxNzA2OTc3MzAwfQ.WZlBdUP4YqYHxvaBwlRXYw5-_FUeCAfd6Rk0W9WFoMI
