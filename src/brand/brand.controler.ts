@@ -5,13 +5,13 @@ import { Brand } from "./brand.entity.js";
 
 const em = orm.em;
 
-export function sanitizeBrandInput(req: Request, res: Response, next: NextFunction){
-    req.body.sanitizeBrandInput = {
+export function normalizeBrandInput(req: Request, res: Response, next: NextFunction){
+    req.body.normalizeBrandInput = {
         name: req.body.name,
         logo: req.body.logo
     }
-    Object.keys(req.body.sanitizeBrandInput).forEach(key => {
-        if(req.body.sanitizeBrandInput[key] === undefined ) delete req.body.sanitizeBrandInput[key];
+    Object.keys(req.body.normalizeBrandInput).forEach(key => {
+        if(req.body.normalizeBrandInput[key] === undefined ) delete req.body.normalizeBrandInput[key];
     })
     next();
 }
@@ -40,7 +40,7 @@ export async function findOne(req: Request, res: Response) {
 
 export async function add(req: Request, res: Response) {
     try{
-        const brand = em.create(Brand, req.body.sanitizeBrandInput);
+        const brand = em.create(Brand, req.body.normalizeBrandInput);
         await em.flush();
         res.status(201).json({message: 'Brand successfully created.', data: brand});
     }catch(error: any){
@@ -53,7 +53,7 @@ export async function update(req: Request, res: Response) {
     try{
         const id = Number.parseInt(req.params.id);
         const brandToUpdate = await em.findOneOrFail(Brand, {id});
-        em.assign(brandToUpdate, req.body.sanitizeBrandInput);
+        em.assign(brandToUpdate, req.body.normalizeBrandInput);
         await em.flush();
         res.status(201).json({message: 'Brand successfully updated.', data: brandToUpdate});
     }catch(error: any){

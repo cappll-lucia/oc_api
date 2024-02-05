@@ -2,17 +2,18 @@ import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/conn.orm.js";
 import { Color } from "./color.entity.js";
 import { rmSync } from "fs";
+import { populate } from "dotenv";
 
 const em = orm.em;
 
 
-export function sanitizeColorInput(req: Request, res: Response, next: NextFunction){
-    req.body.sanitizeColorInput = {
+export function normalizeColorInput(req: Request, res: Response, next: NextFunction){
+    req.body.normalizeColorInput = {
         name: req.body.name,
         background: req.body.background
     }
-    Object.keys(req.body.sanitizeColorInput).forEach(key=>{
-        if(req.body.sanitizeColorInput[key]===undefined) delete req.body.sanitizeColorInput[key];
+    Object.keys(req.body.normalizeColorInput).forEach(key=>{
+        if(req.body.normalizeColorInput[key]===undefined) delete req.body.normalizeColorInput[key];
     })
     next();
 }
@@ -20,7 +21,7 @@ export function sanitizeColorInput(req: Request, res: Response, next: NextFuncti
 
 export async function findAll(req: Request, res: Response) {
     try{
-        const colors = await em.find(Color, {});
+        const colors = await em.find(Color, {}, {populate: ['products']});
         res.status(200).json({message: 'Colors found.', data: colors});
     }catch(error: any){
         res.status(500).json({message: 'Something went wrong while fetching colors data.', error: error.message})
@@ -31,7 +32,7 @@ export async function findAll(req: Request, res: Response) {
 export async function findOne(req: Request, res: Response) {
     try{
         const id = Number.parseInt(req.params.id);
-        const color = await em.findOneOrFail(Color, {id});
+        const color = await em.findOneOrFail(Color, {id}, {populate: ['products']});
         res.status(200).json({message: 'Color found.', data: color});
     }catch(error: any){
         res.status(500).json({message: 'Something went wrong while fetching color data.', error: error.message})
@@ -41,7 +42,7 @@ export async function findOne(req: Request, res: Response) {
 
 export async function add(req: Request, res: Response) {
     try{
-        const color = await em.create(Color, req.body.sanitizeColorInput);
+        const color = await em.create(Color, req.body.normalizeColorInput);
         await em.flush();
         res.status(201).json({message: 'Color successfully created.', data: color});
     }catch(error: any){
@@ -54,7 +55,7 @@ export async function update(req: Request, res: Response) {
     try{
         const id = Number.parseInt(req.params.id);
         const colorToUpdate = await em.findOneOrFail(Color, {id});
-        em.assign(colorToUpdate, req.body.sanitizeColorInput);
+        em.assign(colorToUpdate, req.body.normalizeColorInput);
         em.flush();
         res.status(201).json({message: 'Color successfully updated.', data: colorToUpdate});
     }catch(error: any){

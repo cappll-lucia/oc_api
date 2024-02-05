@@ -5,8 +5,8 @@ import { Product } from "./product.entity.js";
 
 const em = orm.em;
 
-export function sanitizeProductInput(req: Request, res: Response, next: NextFunction){
-    req.body.sanitizeProductInput = {
+export function normalizeProductInput(req: Request, res: Response, next: NextFunction){
+    req.body.normalizeProductInput = {
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
@@ -16,8 +16,8 @@ export function sanitizeProductInput(req: Request, res: Response, next: NextFunc
         promotions: req.body.promotions,
         colors: req.body.colors
     }
-    Object.keys(req.body.sanitizeProductInput).forEach(key=>{
-        if(req.body.sanitizeProductInput[key]===undefined) delete req.body.sanitizeProductInput[key];
+    Object.keys(req.body.normalizeProductInput).forEach(key=>{
+        if(req.body.normalizeProductInput[key]===undefined) delete req.body.normalizeProductInput[key];
     })
     next();
 }
@@ -45,7 +45,7 @@ export async function findOne(req: Request, res: Response) {
 
 export async function add(req: Request, res: Response) {
     try{
-        const product = await em.create(Product, req.body.sanitizeProductInput)
+        const product = await em.create(Product, req.body.normalizeProductInput)
         await em.flush();
         res.status(201).json({message: 'Product successfully created.', data: product});
     }catch(error: any){
@@ -58,7 +58,7 @@ export async function update(req: Request, res: Response) {
     try{
         const id = Number.parseInt(req.params.id);
         const productToUpdate = await em.findOneOrFail(Product, {id});
-        em.assign(productToUpdate, req.body.sanitizeProductInput);
+        em.assign(productToUpdate, req.body.normalizeProductInput);
         await em.flush();
         res.status(201).json({message: 'Product successfully updated.', data: productToUpdate});
     }catch(error: any){

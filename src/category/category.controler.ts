@@ -5,14 +5,14 @@ import { Category } from "./category.entity.js";
 
 const em = orm.em;
 
-export function sanitizeCategoryInput(req: Request, res: Response, next: NextFunction){
-    req.body.sanitizeCategoryInput = {
+export function normalizeCategoryInput(req: Request, res: Response, next: NextFunction){
+    req.body.normalizeCategoryInput = {
         name: req.body.name,
         description: req.body.description,
         products: req.body.products
     }
-    Object.keys(req.body.sanitizeCategoryInput).forEach(key=>{
-        if(req.body.sanitizeCategoryInput[key]===undefined) delete req.body.sanitizeCategoryInput[key];
+    Object.keys(req.body.normalizeCategoryInput).forEach(key=>{
+        if(req.body.normalizeCategoryInput[key]===undefined) delete req.body.normalizeCategoryInput[key];
     })
     next();
 }
@@ -41,7 +41,7 @@ export async function findOne(req: Request, res: Response) {
 
 export async function add(req: Request, res: Response) {
     try{
-        const category = em.create(Category, req.body.sanitizeCategoryInput);
+        const category = em.create(Category, req.body.normalizeCategoryInput);
         await em.flush();
         res.status(201).json({message: 'Category successfully created', data: category})
     }catch(error: any){
@@ -54,7 +54,7 @@ export async function update(req: Request, res: Response) {
     try{
         const id = Number.parseInt(req.params.id);
         const categoryToUpdate = await em.findOneOrFail(Category, {id});
-        em.assign(categoryToUpdate, req.body.sanitizeCategoryInput);
+        em.assign(categoryToUpdate, req.body.normalizeCategoryInput);
         await em.flush();
         res.status(200).json({message: 'Product successfully updated', data: categoryToUpdate});
     }catch(error: any){
