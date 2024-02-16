@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { orm } from "../shared/db/conn.orm.js";
 import { rmSync } from "fs";
 import { Product } from "./product.entity.js";
+import { CLIENT_RENEG_LIMIT } from "tls";
+import { ProductColor } from "./productColor.entity.js";
 
 const em = orm.em;
 
@@ -10,7 +12,6 @@ export function normalizeProductInput(req: Request, res: Response, next: NextFun
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
-        stock: req.body.stock,
         category: req.body.category,
         brand: req.body.brand,
         promotions: req.body.promotions,
@@ -70,7 +71,10 @@ export async function update(req: Request, res: Response) {
 export async function remove(req: Request, res: Response) {
     try{
         const id = Number.parseInt(req.params.id);
-        const product = em.getReference(Product, id);
+        const product = await em.findOneOrFail(Product, {id}, {populate: ['colors']});
+        if(product.colors.count()>0){
+            await em.nativeDelete(ProductColor, {product});
+        }
         em.removeAndFlush(product);
         res.status(200).json({message: `Product with id=${id} successfully deleted.`})
     }catch(error: any){

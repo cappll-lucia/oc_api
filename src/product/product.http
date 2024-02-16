@@ -3,22 +3,20 @@
 GET http://localhost:3000/api/products
 
 ### GET ONE
-GET http://localhost:3000/api/products/1
+GET http://localhost:3000/api/products/3
 
 ### CREATE
 POST http://localhost:3000/api/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjkwNjM2NCwiZXhwIjoxNzA2OTE3MTY0fQ.OH_zjy-3ZGQ42w7bUrZm6tsEIUR6-_pgw3VgQXVc7fI
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEwMjU2NCwiZXhwIjoxNzA4MTEzMzY0fQ.G18emOWNOUsoQDX5UYd6hC2xxapCmxkq3KJZqElbVtg
 
 {
     "name": "MC 80029",
     "description": "Montura: Pulido Oro",
     "price": 165000,
-    "stock": 5,
-    "category": 5,
-    "brand": 4,
-    "colors": [3]
+    "category": 1,
+    "brand": 1,
+    "colors": [5]
 }
 
 ### UPDATE
@@ -30,22 +28,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
     "name": "MC 80029",
     "description": "Montura: Pulido Oro",
     "price": 165000,
-    "stock": 5,
     "category": 5,
     "brand": 4,
     "colors": [5]
 }
 
 ### UPDATE
-PATCH http://localhost:3000/api/products/1
+PATCH http://localhost:3000/api/products/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjk2NjUwMCwiZXhwIjoxNzA2OTc3MzAwfQ.WZlBdUP4YqYHxvaBwlRXYw5-_FUeCAfd6Rk0W9WFoMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODA4Nzk0NywiZXhwIjoxNzA4MDk4NzQ3fQ.6EezbFVxM8UOzbk8jrd5C7mF2Iihjwh3QiUaz3DLCiI
 
 {
-    "promotions": [4, 15, 17]
+    "colors": [2]
 }
 
 
 ### REMOVE
-DELETE http://localhost:3000/api/products/7
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjkwNjM2NCwiZXhwIjoxNzA2OTE3MTY0fQ.OH_zjy-3ZGQ42w7bUrZm6tsEIUR6-_pgw3VgQXVc7fI
+DELETE http://localhost:3000/api/products/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEwMjU2NCwiZXhwIjoxNzA4MTEzMzY0fQ.G18emOWNOUsoQDX5UYd6hC2xxapCmxkq3KJZqElbVtg

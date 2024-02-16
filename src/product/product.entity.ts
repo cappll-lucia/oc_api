@@ -4,6 +4,7 @@ import { Category } from "../category/category.entity.js";
 import { Brand } from "../brand/brand.entity.js";
 import { Promotion } from "../promotion/promotion.entity.js";
 import { Color } from "../color/color.entity.js";
+import { ProductColor } from "./productColor.entity.js";
 
 @Entity()
 export class Product extends BaseEntity{
@@ -17,9 +18,6 @@ export class Product extends BaseEntity{
     @Property({nullable: false})
     price!: number
 
-    @Property({nullable: false})
-    stock!: number
-
     @ManyToOne(()=> Category, {nullable: false})
     category!: Rel<Category>
 
@@ -29,6 +27,6 @@ export class Product extends BaseEntity{
     @ManyToMany(()=> Promotion, (promo)=>promo.products, {cascade: [Cascade.ALL] ,owner: true})
     promotions!: Promotion[]
 
-    @ManyToMany(()=> Color, (color)=> color.products, {cascade: [Cascade.ALL], owner: true})
-    colors!: Color[]
+    @ManyToMany({entity: ()=> Color, pivotEntity: ()=> ProductColor})
+    colors = new Collection<Color>(this)
 }
