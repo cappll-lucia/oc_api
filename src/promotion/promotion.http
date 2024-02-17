@@ -14,40 +14,42 @@ GET http://localhost:3000/api/promotions/4
 ### CREATE
 POST http://localhost:3000/api/promotions
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjk2NjUwMCwiZXhwIjoxNzA2OTc3MzAwfQ.WZlBdUP4YqYHxvaBwlRXYw5-_FUeCAfd6Rk0W9WFoMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEzODY2OCwiZXhwIjoxNzA4MTQ5NDY4fQ.kjE30_Qlu9i16lIPhYgjCbJuHs289-xqtwzL9eHVsBA
 
 {
-    "title": "School Back",
-    "validFrom": "2024-02-01",
-    "validUntil": "2024-03-31",
-    "discountPercent": 0.15
+     "title": "Hockey Back!",
+      "description": null,
+      "validFrom": "2024-03-01",
+      "validUntil": "2024-05-31",
+      "discountPercent": "0.15"
 }
 
 ### UPDATE
-PUT http://localhost:3000/api/promotions/4
+PUT http://localhost:3000/api/promotions/9
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjk2NjUwMCwiZXhwIjoxNzA2OTc3MzAwfQ.WZlBdUP4YqYHxvaBwlRXYw5-_FUeCAfd6Rk0W9WFoMI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEzODY2OCwiZXhwIjoxNzA4MTQ5NDY4fQ.kjE30_Qlu9i16lIPhYgjCbJuHs289-xqtwzL9eHVsBA
+
 
 {
-    "title": "Summer Party!",
-    "description": "Descuentos todo el verano",
-    "validFrom": "2023-12-10",
-    "validUntil": "2024-02-28",
-    "discountPercent": 0.20
+      "title": "School Back!",
+      "description": null,
+      "validFrom": "2024-02-01",
+      "validUntil": "2024-03-31",
+      "discountPercent": "0.15"
 }
 
 
 ### UPDATE
-PATCH http://localhost:3000/api/promotions/17
+PATCH http://localhost:3000/api/promotions/9
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNzEzNTQyMCwiZXhwIjoxNzA3MTQ2MjIwfQ.Bkj-iojsm79iZDQe4lQ_FNkXad1LdptBH-qUE9B8Rw0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEzODY2OCwiZXhwIjoxNzA4MTQ5NDY4fQ.kjE30_Qlu9i16lIPhYgjCbJuHs289-xqtwzL9eHVsBA
 
 {
-    "validUntil": "2024-03-31"
+    "validUntil": "2024-03-27",
 }
 
 
 
 ### DELETE
-DELETE  http://localhost:3000/api/promotions/6
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjk2NjUwMCwiZXhwIjoxNzA2OTc3MzAwfQ.WZlBdUP4YqYHxvaBwlRXYw5-_FUeCAfd6Rk0W9WFoMI
+DELETE  http://localhost:3000/api/promotions/11
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEzODY2OCwiZXhwIjoxNzA4MTQ5NDY4fQ.kjE30_Qlu9i16lIPhYgjCbJuHs289-xqtwzL9eHVsBA

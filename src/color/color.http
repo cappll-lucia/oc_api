@@ -8,31 +8,30 @@ GET http://localhost:3000/api/colors/4
 ### ADD
 POST http://localhost:3000/api/colors
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEwMjU2NCwiZXhwIjoxNzA4MTEzMzY0fQ.G18emOWNOUsoQDX5UYd6hC2xxapCmxkq3KJZqElbVtg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEyNzQwNiwiZXhwIjoxNzA4MTM4MjA2fQ.VpZViPutljF0o50ffyoPrhIt_NcRrY0maFkUfIbwusQ
 
 {
-    "name": "Blanco",
-    "background": "#FFF"
+    "name": "Rojo",
+    "background": "#FF0000"
 }
 
 ### UPDATE
-PUT http://localhost:3000/api/colors/5
+PUT http://localhost:3000/api/colors/6
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjkwNjM2NCwiZXhwIjoxNzA2OTE3MTY0fQ.OH_zjy-3ZGQ42w7bUrZm6tsEIUR6-_pgw3VgQXVc7fI
 
 {
-    "name": "Negro",
-    "background": "#0000"
+    "background": ""
 }
 
 
 ### UPDATE
-PATCH  http://localhost:3000/api/colors/5
+PATCH  http://localhost:3000/api/colors/6
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjkwNjM2NCwiZXhwIjoxNzA2OTE3MTY0fQ.OH_zjy-3ZGQ42w7bUrZm6tsEIUR6-_pgw3VgQXVc7fI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEyNzQwNiwiZXhwIjoxNzA4MTM4MjA2fQ.VpZViPutljF0o50ffyoPrhIt_NcRrY0maFkUfIbwusQ
 
 {
-    "background": "#000"
+    "background": "#FF0000",
 }
 
 ###REMOVE

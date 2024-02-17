@@ -21,3 +21,16 @@ Content-Type: application/json
     "lastName": "Cappellini",
     "role": "admin"
 }
+
+
+### SIGNUP
+POST http://localhost:3000/api/users/signup
+Content-Type: application/json
+
+{
+    "email": "juankp@gmail.com",
+    "password": "test1234",
+    "firstName": "Juan",
+    "lastName": "Cappellini",
+    "role": "user"
+}
