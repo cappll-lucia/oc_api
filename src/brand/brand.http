@@ -17,14 +17,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
 ### UPDATE
 PUT http://localhost:3000/api/brands/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEyNzQwNiwiZXhwIjoxNzA4MTM4MjA2fQ.VpZViPutljF0o50ffyoPrhIt_NcRrY0maFkUfIbwusQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODM1NTAyNSwiZXhwIjoxNzA4MzY1ODI1fQ.qZzGf5W-FU8jOC4UfZZh4CLz3eQwqss7fJzHWAGE9eE
 
 
 {
-    "createdAt": "2024-01-27T12:33:28.000Z",
-    "updatedAt": "2024-01-27T12:33:28.000Z",
-    "name": "Rusty",
-    "logo": null
+    "name": "Rusty"
 }
 
 ### UPDATE

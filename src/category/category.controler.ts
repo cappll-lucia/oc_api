@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { orm } from '../shared/db/conn.orm.js';
-import { rmSync } from 'fs';
 import { Category } from './category.entity.js';
 import { categorySchema } from './category.schema.js';
 import { ZodError } from 'zod';
@@ -77,7 +76,6 @@ export async function update(req: Request, res: Response) {
       categoryToUpdate,
       req.body.normalizeCategoryInput
     );
-    console.log(assignedCateg);
     categorySchema.parse(assignedCateg);
     await em.flush();
     res.status(200).json({

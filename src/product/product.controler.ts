@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { orm } from '../shared/db/conn.orm.js';
-import { rmSync } from 'fs';
 import { Product } from './product.entity.js';
-import { CLIENT_RENEG_LIMIT } from 'tls';
 import { ProductColor } from './productColor.entity.js';
-
+import { productSchema } from './product.schema.js';
+import { ZodError } from 'zod';
 const em = orm.em;
 
 export function normalizeProductInput(
@@ -63,12 +62,21 @@ export async function findOne(req: Request, res: Response) {
 
 export async function add(req: Request, res: Response) {
   try {
+    productSchema.parse({
+      ...req.body.normalizeProductInput,
+      brand: { id: req.body.normalizeProductInput.brand },
+      category: { id: req.body.normalizeProductInput.category },
+    });
     const product = await em.create(Product, req.body.normalizeProductInput);
     await em.flush();
     res
       .status(201)
       .json({ message: 'Product successfully created.', data: product });
   } catch (error: any) {
+    if (error instanceof ZodError) {
+      const { fieldErrors: errors } = error.flatten();
+      res.status(500).json({ message: errors });
+    }
     res.status(500).json({
       message: 'Something went wrong while adding a new product.',
       error: error.message,
@@ -80,13 +88,25 @@ export async function update(req: Request, res: Response) {
   try {
     const id = Number.parseInt(req.params.id);
     const productToUpdate = await em.findOneOrFail(Product, { id });
-    em.assign(productToUpdate, req.body.normalizeProductInput);
+    const assignedProduct = em.assign(
+      productToUpdate,
+      req.body.normalizeProductInput
+    );
+    console.log(assignedProduct);
+    productSchema.parse({
+      ...assignedProduct,
+      colors: assignedProduct.colors.getItems().map((color: any) => color.id),
+    });
     await em.flush();
     res.status(201).json({
       message: 'Product successfully updated.',
       data: productToUpdate,
     });
   } catch (error: any) {
+    if (error instanceof ZodError) {
+      const { fieldErrors: errors } = error.flatten();
+      res.status(500).json({ message: errors });
+    }
     res.status(500).json({
       message: 'Something went wrong while updating product data.',
       error: error.message,

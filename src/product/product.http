@@ -3,43 +3,41 @@
 GET http://localhost:3000/api/products
 
 ### GET ONE
-GET http://localhost:3000/api/products/3
+GET http://localhost:3000/api/products/4
 
 ### CREATE
 POST http://localhost:3000/api/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEwMjU2NCwiZXhwIjoxNzA4MTEzMzY0fQ.G18emOWNOUsoQDX5UYd6hC2xxapCmxkq3KJZqElbVtg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODM2OTUwMSwiZXhwIjoxNzA4MzgwMzAxfQ.PXnmDDQdHEGPJr-JkSN8OnAn0wjudcjK4mQmIXM_NAA
 
 {
-    "name": "MC 80029",
-    "description": "Montura: Pulido Oro",
-    "price": 165000,
-    "category": 1,
-    "brand": 1,
+    "name": "Ground",
+    "price": 90000,
+    "category": 2,
+    "brand": 2,
     "colors": [5]
 }
 
 ### UPDATE
-PUT http://localhost:3000/api/products/9
+PUT http://localhost:3000/api/products/4
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjkwNjM2NCwiZXhwIjoxNzA2OTE3MTY0fQ.OH_zjy-3ZGQ42w7bUrZm6tsEIUR6-_pgw3VgQXVc7fI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODM2OTUwMSwiZXhwIjoxNzA4MzgwMzAxfQ.PXnmDDQdHEGPJr-JkSN8OnAn0wjudcjK4mQmIXM_NAA
 
 {
-    "name": "MC 80029",
-    "description": "Montura: Pulido Oro",
-    "price": 165000,
-    "category": 5,
-    "brand": 4,
-    "colors": [5]
+    "name": "Dapper",
+    "price": 90000,
+    "category": 2,
+    "brand": 2,
+    "colors": [4]
 }
 
 ### UPDATE
-PATCH http://localhost:3000/api/products/2
+PATCH http://localhost:3000/api/products/4
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODA4Nzk0NywiZXhwIjoxNzA4MDk4NzQ3fQ.6EezbFVxM8UOzbk8jrd5C7mF2Iihjwh3QiUaz3DLCiI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODM2OTUwMSwiZXhwIjoxNzA4MzgwMzAxfQ.PXnmDDQdHEGPJr-JkSN8OnAn0wjudcjK4mQmIXM_NAA
 
 {
-    "colors": [2]
+    "colors": [4,5]
 }
 
 
