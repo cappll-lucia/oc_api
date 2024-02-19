@@ -1,4 +1,4 @@
-import { Entity, Collection, Property, DoubleType, DateType, ManyToMany, Filter } from "@mikro-orm/mysql";
+import { Entity, Collection, Property, DoubleType, DateType, ManyToMany, Filter, Unique } from "@mikro-orm/mysql";
 import { BaseEntity } from "../shared/db/baseEntity.entity.js";
 import { Product } from "../product/product.entity.js";
 
@@ -14,6 +14,7 @@ import { Product } from "../product/product.entity.js";
 export class Promotion extends BaseEntity{
 
     @Property({nullable: false})
+    @Unique()
     title!: string
 
     @Property({nullable: true})
@@ -25,7 +26,7 @@ export class Promotion extends BaseEntity{
     @Property({type: DateType, nullable: false})
     validUntil!: DateType
 
-    @Property({nullable: true})
+    @Property({nullable: true,  unsigned: true})
     discountPercent?: DoubleType 
     
     @Property({nullable: true})

@@ -1,4 +1,4 @@
-import { Entity, Property, ManyToMany, ManyToOne, Collection, Cascade, Rel, t } from "@mikro-orm/core";
+import { Entity, Property, ManyToMany, ManyToOne, Collection, Cascade, Rel, t, Unique } from "@mikro-orm/core";
 import { BaseEntity } from "../shared/db/baseEntity.entity.js";
 import { Category } from "../category/category.entity.js";
 import { Brand } from "../brand/brand.entity.js";
@@ -10,12 +10,13 @@ import { ProductColor } from "./productColor.entity.js";
 export class Product extends BaseEntity{
 
     @Property({nullable: false})
+    @Unique()
     name!: string
 
     @Property({nullable: true})
     description?: string
 
-    @Property({nullable: false})
+    @Property({nullable: false, unsigned: true})
     price!: number
 
     @ManyToOne(()=> Category, {nullable: false})
