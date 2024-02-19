@@ -92,7 +92,7 @@ export async function update(req: Request, res: Response) {
       productToUpdate,
       req.body.normalizeProductInput
     );
-    console.log(assignedProduct);
+    await productToUpdate.colors.load();
     productSchema.parse({
       ...assignedProduct,
       colors: assignedProduct.colors.getItems().map((color: any) => color.id),
@@ -109,6 +109,27 @@ export async function update(req: Request, res: Response) {
     }
     res.status(500).json({
       message: 'Something went wrong while updating product data.',
+      error: error.message,
+    });
+  }
+}
+
+export async function updateStock(req: Request, res: Response) {
+  try {
+    const prodId = Number.parseInt(req.params.prodId);
+    const colorId = Number.parseInt(req.params.colorId);
+    const qb = orm.em.createQueryBuilder(ProductColor);
+    qb.update({ stock: req.body.stock }).where({
+      product: prodId,
+      color: colorId,
+    });
+    await qb.execute();
+    res.status(201).json({
+      message: 'Product-color stock successfully updated.',
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: 'Something went wrong while updating product-color stock.',
       error: error.message,
     });
   }

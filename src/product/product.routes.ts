@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {normalizeProductInput, findAll, findOne, add, update, remove} from './product.controler.js';
+import {normalizeProductInput, findAll, findOne, add, update, remove, updateStock} from './product.controler.js';
 import { jwtAuth } from "../shared/tokenValidator.js";
 
 export const productRouter = Router();
@@ -10,3 +10,5 @@ productRouter.post('/', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, normal
 productRouter.put('/:id', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, normalizeProductInput], update);
 productRouter.patch('/:id', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, normalizeProductInput], update);
 productRouter.delete('/:id', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin], remove);
+
+productRouter.put('/:prodId/:colorId', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, normalizeProductInput], updateStock);

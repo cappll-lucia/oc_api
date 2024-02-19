@@ -28,18 +28,29 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
     "price": 90000,
     "category": 2,
     "brand": 2,
-    "colors": [4]
+    "colors": [4,5],
+    "promotions": [9]
 }
 
 ### UPDATE
 PATCH http://localhost:3000/api/products/4
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODM2OTUwMSwiZXhwIjoxNzA4MzgwMzAxfQ.PXnmDDQdHEGPJr-JkSN8OnAn0wjudcjK4mQmIXM_NAA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODM3NzQ0MiwiZXhwIjoxNzA4Mzg4MjQyfQ.aUoGAa4gaxrklPipyxPzy5sgAPLH3laDQ5FiZGnW7v4
 
 {
-    "colors": [4,5]
+    "promotions": [12]
 }
 
+
+
+### UPDATE STOCK
+PUT http://localhost:3000/api/products/4/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODM3NzQ0MiwiZXhwIjoxNzA4Mzg4MjQyfQ.aUoGAa4gaxrklPipyxPzy5sgAPLH3laDQ5FiZGnW7v4
+
+{
+    "stock": 10
+}
 
 ### REMOVE
 DELETE http://localhost:3000/api/products/2
