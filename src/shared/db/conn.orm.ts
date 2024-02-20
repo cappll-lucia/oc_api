@@ -9,7 +9,7 @@ export const orm = await MikroORM.init({
   entities: ['dist/**/*.entity.js'],
   entitiesTs: ['src/**/*.entity.ts'],
   dbName: process.env.DB_NAME,
-  clientUrl: `mysql://${process.env.DB_USER}:${process.env.DB_USER}@localhost:3306/${process.env.DB_NAME}`,
+  clientUrl: process.env.DB_HOST,
   password: process.env.DB_PSW,
   highlighter: new SqlHighlighter(),
   debug: true,
