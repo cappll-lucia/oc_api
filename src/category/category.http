@@ -1,21 +1,21 @@
 
 ### GET ALL
-GET http://localhost:3000/api/categories
+GET https://ocapi-production-5d91.up.railway.app/api/categories
 
 ### GET ONE
-GET http://localhost:3000/api/categories/2
+GET https://ocapi-production-5d91.up.railway.app/api/categories/2
 
 ### ADD
-POST http://localhost:3000/api/categories
+POST https://ocapi-production-5d91.up.railway.app/api/categories
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEyNzQwNiwiZXhwIjoxNzA4MTM4MjA2fQ.VpZViPutljF0o50ffyoPrhIt_NcRrY0maFkUfIbwusQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODQyOTg5MiwiZXhwIjoxNzA4NDQwNjkyfQ.V5WAPDTiAw5BNfP0L3W93IL2kIKaSej1XdOyk7LqIRQ
 
 {
     "name": "Anteojos de Sol"
 }
 
 ### UPDATE
-PUT http://localhost:3000/api/categories/2
+PUT https://ocapi-production-5d91.up.railway.app/api/categories/2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEyNzQwNiwiZXhwIjoxNzA4MTM4MjA2fQ.VpZViPutljF0o50ffyoPrhIt_NcRrY0maFkUfIbwusQ
 
@@ -28,7 +28,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
 }
 
 ### UPDATE
-PATCH  http://localhost:3000/api/categories/2
+PATCH  https://ocapi-production-5d91.up.railway.app/api/categories/2
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEyNzQwNiwiZXhwIjoxNzA4MTM4MjA2fQ.VpZViPutljF0o50ffyoPrhIt_NcRrY0maFkUfIbwusQ
 
@@ -37,5 +37,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
 }
 
 ###REMOVE
-DELETE http://localhost:3000/api/categories/6
+DELETE https://ocapi-production-5d91.up.railway.app/api/categories/6
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjg4Mzk3MiwiZXhwIjoxNzA2ODk0NzcyfQ.SfMCLp4oEMuDQdKTMtszpoaG2dJR4sYWcUXTt5s1Yz0

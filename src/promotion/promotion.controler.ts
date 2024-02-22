@@ -101,7 +101,6 @@ export async function findOne(req: Request, res: Response) {
 
 export async function add(req: Request, res: Response) {
   try {
-    console.log(req.body.normalizePromotionInput);
     promotionSchema.parse({
       ...req.body.normalizePromotionInput,
       validFrom: new Date(req.body.normalizePromotionInput.validFrom),

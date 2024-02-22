@@ -1,32 +1,32 @@
 
 ### GET ALL
-GET http://localhost:3000/api/colors
+GET https://ocapi-production-5d91.up.railway.app/api/colors
 
 ### GET ONE
-GET http://localhost:3000/api/colors/4
+GET https://ocapi-production-5d91.up.railway.app/api/colors/4
 
 ### ADD
-POST http://localhost:3000/api/colors
+POST https://ocapi-production-5d91.up.railway.app/api/colors
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEyNzQwNiwiZXhwIjoxNzA4MTM4MjA2fQ.VpZViPutljF0o50ffyoPrhIt_NcRrY0maFkUfIbwusQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODQyOTg5MiwiZXhwIjoxNzA4NDQwNjkyfQ.V5WAPDTiAw5BNfP0L3W93IL2kIKaSej1XdOyk7LqIRQ
 
 {
-    "name": "Rojo",
+    "name": "Negro",
     "background": "#FF0000"
 }
 
 ### UPDATE
-PUT http://localhost:3000/api/colors/6
+PUT https://ocapi-production-5d91.up.railway.app/api/colors/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwNjkwNjM2NCwiZXhwIjoxNzA2OTE3MTY0fQ.OH_zjy-3ZGQ42w7bUrZm6tsEIUR6-_pgw3VgQXVc7fI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODQyOTg5MiwiZXhwIjoxNzA4NDQwNjkyfQ.V5WAPDTiAw5BNfP0L3W93IL2kIKaSej1XdOyk7LqIRQ
 
 {
-    "background": ""
+    "background": "#0000"
 }
 
 
 ### UPDATE
-PATCH  http://localhost:3000/api/colors/6
+PATCH  https://ocapi-production-5d91.up.railway.app/api/colors/6
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEyNzQwNiwiZXhwIjoxNzA4MTM4MjA2fQ.VpZViPutljF0o50ffyoPrhIt_NcRrY0maFkUfIbwusQ
 
@@ -35,5 +35,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
 }
 
 ###REMOVE
-DELETE http://localhost:3000/api/colors/5
+DELETE https://ocapi-production-5d91.up.railway.app/api/colors/5
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEwMjU2NCwiZXhwIjoxNzA4MTEzMzY0fQ.G18emOWNOUsoQDX5UYd6hC2xxapCmxkq3KJZqElbVtg

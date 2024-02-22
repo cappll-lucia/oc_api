@@ -16,24 +16,24 @@ const app = express();
 
 app.use(express.json());
 
-app.use((req, res, next)=>{
-    RequestContext.create(orm.em, next);
-})
+app.use((req, res, next) => {
+  RequestContext.create(orm.em, next);
+});
 
 app.use('/api/users', userRouter);
-app.use('/api/products', productRouter); 
-app.use('/api/categories', categoryRouter); 
-app.use('/api/brands', brandRouter); 
-app.use('/api/promotions', promotionRouter); 
-app.use('/api/colors', colorRouter); 
+app.use('/api/products', productRouter);
+app.use('/api/categories', categoryRouter);
+app.use('/api/brands', brandRouter);
+app.use('/api/promotions', promotionRouter);
+app.use('/api/colors', colorRouter);
 
-app.use((_, res)=>{
-    res.status(404).send({message: 'Resource not found'});
-})
+app.use((_, res) => {
+  res.status(404).send({ message: 'Resource not found' });
+});
 
 await syncSchema();
 
 const PORT = process.env.PORT;
-app.listen(PORT, ()=>{
-    console.log(`Server running at http://localhost:${PORT}`)
-})
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});

@@ -4,7 +4,28 @@ import { Product } from './product.entity.js';
 import { ProductColor } from './productColor.entity.js';
 import { productSchema } from './product.schema.js';
 import { ZodError } from 'zod';
+import multer from 'multer';
+import { CLIENT_RENEG_LIMIT } from 'tls';
+
+const storage = multer.diskStorage({
+  destination: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (err: Error | null, destination: string) => void
+  ) => {
+    cb(null, 'uploads');
+  },
+  filename: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (err: Error | null, filename: string) => void
+  ) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
 const em = orm.em;
+const upload = multer({ storage: storage });
 
 export function normalizeProductInput(
   req: Request,
@@ -32,7 +53,7 @@ export async function findAll(req: Request, res: Response) {
     const products = await em.find(
       Product,
       {},
-      { populate: ['colors', 'promotions'] }
+      { populate: ['colors.name', 'promotions'] }
     );
     res.status(200).json({ message: 'Products found.', data: products });
   } catch (error: any) {
@@ -52,6 +73,26 @@ export async function findOne(req: Request, res: Response) {
       { populate: ['colors', 'promotions'] }
     );
     res.status(200).json({ message: 'Product found.', data: product });
+  } catch (error: any) {
+    res.status(500).json({
+      message: 'Something went wrong while fetching product data.',
+      error: error.message,
+    });
+  }
+}
+
+export async function getProductColorData(req: Request, res: Response) {
+  try {
+    const prodId = Number.parseInt(req.params.prodId);
+    const colorId = Number.parseInt(req.params.colorId);
+    const qb = orm.em.createQueryBuilder(ProductColor);
+    qb.select(['stock', 'images_url']).where({
+      product: prodId,
+      color: colorId,
+    });
+    const data = await qb.execute();
+    data[0].images_url = JSON.parse(data[0].images_url);
+    res.status(200).json({ message: 'ProductColor data found.', data: data[0] });
   } catch (error: any) {
     res.status(500).json({
       message: 'Something went wrong while fetching product data.',
@@ -153,6 +194,46 @@ export async function remove(req: Request, res: Response) {
   } catch (error: any) {
     res.status(500).json({
       message: 'Something went wrong while removing product.',
+      error: error.message,
+    });
+  }
+}
+
+export const uploadProductImageMiddleware = upload.single('image');
+export async function uploadProductImage(req: Request, res: Response) {
+  try {
+    const prodId = Number.parseInt(req.params.prodId);
+    const colorId = Number.parseInt(req.params.colorId);
+    const qb = orm.em.createQueryBuilder(ProductColor);
+    qb.select('images_url').where({ product: prodId, color: colorId });
+    const image_url_result = await qb.execute();
+    const image_url_list = JSON.parse(image_url_result[0].images_url);
+    image_url_list.push(req.file?.filename);
+    const qb2 = orm.em.createQueryBuilder(ProductColor);
+    qb2.update({ images_url: JSON.stringify(image_url_list) }).where({
+      product: prodId,
+      color: colorId,
+    });
+    await qb2.execute();
+    res.status(201).json({
+      message: 'Product image successfully uploaded.',
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: 'Something went wrong while uploading product image',
+      error: error.message,
+    });
+  }
+}
+
+export async function getImageFile(req: Request, res: Response) {
+  try {
+    const imageName = req.params.imageName;
+    const path = `/uploads/${imageName}`;
+    res.sendFile(path, { root: '.' });
+  } catch (error: any) {
+    res.status(500).json({
+      message: 'Something went wrong while getting product image',
       error: error.message,
     });
   }

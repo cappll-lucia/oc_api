@@ -1,18 +1,18 @@
 
 ### GET ALL
-GET http://localhost:3000/api/promotions
+GET https://ocapi-production-5d91.up.railway.app/api/promotions
 
 ### GET ONGOING
-GET http://localhost:3000/api/promotions/ongoing
+GET https://ocapi-production-5d91.up.railway.app/api/promotions/ongoing
 
 ### GET ONGOING FOR PRODUCT
-GET http://localhost:3000/api/promotions/ongoing/1
+GET https://ocapi-production-5d91.up.railway.app/api/promotions/ongoing/1
 
 ### FIND ONE
-GET http://localhost:3000/api/promotions/4
+GET https://ocapi-production-5d91.up.railway.app/api/promotions/4
 
 ### CREATE
-POST http://localhost:3000/api/promotions
+POST https://ocapi-production-5d91.up.railway.app/api/promotions
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEzODY2OCwiZXhwIjoxNzA4MTQ5NDY4fQ.kjE30_Qlu9i16lIPhYgjCbJuHs289-xqtwzL9eHVsBA
 
@@ -25,7 +25,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
 }
 
 ### UPDATE
-PUT http://localhost:3000/api/promotions/9
+PUT https://ocapi-production-5d91.up.railway.app/api/promotions/9
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEzODY2OCwiZXhwIjoxNzA4MTQ5NDY4fQ.kjE30_Qlu9i16lIPhYgjCbJuHs289-xqtwzL9eHVsBA
 
@@ -40,7 +40,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
 
 
 ### UPDATE
-PATCH http://localhost:3000/api/promotions/9
+PATCH https://ocapi-production-5d91.up.railway.app/api/promotions/9
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEzODY2OCwiZXhwIjoxNzA4MTQ5NDY4fQ.kjE30_Qlu9i16lIPhYgjCbJuHs289-xqtwzL9eHVsBA
 
@@ -51,5 +51,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
 
 
 ### DELETE
-DELETE  http://localhost:3000/api/promotions/11
+DELETE  https://ocapi-production-5d91.up.railway.app/api/promotions/11
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODEzODY2OCwiZXhwIjoxNzA4MTQ5NDY4fQ.kjE30_Qlu9i16lIPhYgjCbJuHs289-xqtwzL9eHVsBA

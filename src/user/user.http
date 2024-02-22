@@ -11,7 +11,7 @@ Content-Type: application/json
 
 
 ### SIGNUP
-POST http://localhost:3000/api/users/signup
+POST https://ocapi-production-5d91.up.railway.app/api/users/signup
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 
 ### SIGNUP
-POST http://localhost:3000/api/users/signup
+POST https://ocapi-production-5d91.up.railway.app/api/users/signup
 Content-Type: application/json
 
 {
