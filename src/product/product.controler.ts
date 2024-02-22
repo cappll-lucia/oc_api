@@ -208,6 +208,12 @@ export async function uploadProductImage(req: Request, res: Response) {
     const qb = orm.em.createQueryBuilder(ProductColor);
     qb.select('images_url').where({ product: prodId, color: colorId });
     const image_url_result = await qb.execute();
+    if (image_url_result.length === 0) {
+      res.status(404).json({
+        message: 'No hay registros del producto con el color seleccionado.',
+      });
+      return;
+    }
     const image_url_list = JSON.parse(image_url_result[0].images_url);
     image_url_list.push(req.file?.filename);
     const qb2 = orm.em.createQueryBuilder(ProductColor);
