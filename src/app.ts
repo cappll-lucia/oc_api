@@ -17,7 +17,7 @@ const app = express();
 app.use(express.json());
 
 app.use((req, res, next) => {
-  RequestContext.create(orm.em, next);
+	RequestContext.create(orm.em, next);
 });
 
 app.use('/api/users', userRouter);
@@ -28,12 +28,12 @@ app.use('/api/promotions', promotionRouter);
 app.use('/api/colors', colorRouter);
 
 app.use((_, res) => {
-  res.status(404).send({ message: 'Resource not found' });
+	res.status(404).send({ message: 'Resource not found' });
 });
 
 await syncSchema();
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+	console.log(`Server running at http://localhost:${PORT}`);
 });
