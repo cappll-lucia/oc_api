@@ -4,8 +4,28 @@ import { Promotion } from './promotion.entity.js';
 import moment from 'moment';
 import { promotionSchema } from './promotion.schema.js';
 import { ZodError } from 'zod';
+import multer from 'multer';
+import { CLIENT_RENEG_LIMIT } from 'tls';
+
+const storage = multer.diskStorage({
+  destination: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (err: Error | null, destination: string) => void
+  ) => {
+    cb(null, 'uploads/promotions');
+  },
+  filename: (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (err: Error | null, filename: string) => void
+  ) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
 
 const em = orm.em;
+const upload = multer({ storage: storage });
 
 export function normalizePromotionInput(
   req: Request,
@@ -22,7 +42,6 @@ export function normalizePromotionInput(
       ? moment(req.body.validUntil).format('YYYY-MM-DD')
       : undefined,
     discountPercent: req.body.discountPercent,
-    banner: req.body.banner,
   };
   Object.keys(req.body.normalizePromotionInput).forEach((key) => {
     if (req.body.normalizePromotionInput[key] === undefined)
@@ -167,6 +186,39 @@ export async function remove(req: Request, res: Response) {
   } catch (error: any) {
     res.status(500).json({
       message: 'Something went wrong while removing promotion.',
+      error: error.message,
+    });
+  }
+}
+
+export const uploadPromoBannerMiddleware = upload.single('banner');
+export async function uploadPromoBanner(req: Request, res: Response) {
+  try {
+    const id = Number.parseInt(req.params.id);
+    const promotion = await em.findOneOrFail(Promotion, id);
+    const banners = JSON.parse(promotion.banner_url);
+    banners.push(req.file?.filename);
+    promotion.banner_url = JSON.stringify(banners);
+    await em.flush();
+    res.status(201).json({
+      message: 'Promotion banner successfully uploaded.',
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      message: 'Something went wrong while uploading promotion banner.',
+      error: error.message,
+    });
+  }
+}
+
+export async function getBannerFile(req: Request, res: Response) {
+  try {
+    const bannerName = req.params.bannerName;
+    const path = `/uploads/promotions/${bannerName}`;
+    res.sendFile(path, { root: '.' });
+  } catch (error: any) {
+    res.status(500).json({
+      message: 'Something went wrong while getting promotion banner',
       error: error.message,
     });
   }

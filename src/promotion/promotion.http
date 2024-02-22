@@ -1,6 +1,6 @@
 
 ### GET ALL
-GET https://ocapi-production-5d91.up.railway.app/api/promotions
+GET http://localhost:3000/api/promotions
 
 ### GET ONGOING
 GET https://ocapi-production-5d91.up.railway.app/api/promotions/ongoing

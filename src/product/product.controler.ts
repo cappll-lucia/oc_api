@@ -5,7 +5,6 @@ import { ProductColor } from './productColor.entity.js';
 import { productSchema } from './product.schema.js';
 import { ZodError } from 'zod';
 import multer from 'multer';
-import { CLIENT_RENEG_LIMIT } from 'tls';
 
 const storage = multer.diskStorage({
   destination: (
@@ -13,7 +12,7 @@ const storage = multer.diskStorage({
     file: Express.Multer.File,
     cb: (err: Error | null, destination: string) => void
   ) => {
-    cb(null, 'uploads');
+    cb(null, 'uploads/products');
   },
   filename: (
     req: Request,
@@ -92,7 +91,9 @@ export async function getProductColorData(req: Request, res: Response) {
     });
     const data = await qb.execute();
     data[0].images_url = JSON.parse(data[0].images_url);
-    res.status(200).json({ message: 'ProductColor data found.', data: data[0] });
+    res
+      .status(200)
+      .json({ message: 'ProductColor data found.', data: data[0] });
   } catch (error: any) {
     res.status(500).json({
       message: 'Something went wrong while fetching product data.',
@@ -229,7 +230,7 @@ export async function uploadProductImage(req: Request, res: Response) {
 export async function getImageFile(req: Request, res: Response) {
   try {
     const imageName = req.params.imageName;
-    const path = `/uploads/${imageName}`;
+    const path = `/uploads/products/${imageName}`;
     res.sendFile(path, { root: '.' });
   } catch (error: any) {
     res.status(500).json({
