@@ -178,6 +178,7 @@ export async function update(req: Request, res: Response) {
 export async function remove(req: Request, res: Response) {
   try {
     const id = Number.parseInt(req.params.id);
+    const em = orm.em.fork();
     const promotion = await em.findOneOrFail(Promotion, id);
     await em.removeAndFlush(promotion);
     res
