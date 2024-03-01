@@ -16,9 +16,21 @@ export const brandRouter = Router();
 
 brandRouter.get('/', findAll);
 brandRouter.get('/:id', findOne);
-brandRouter.post('/', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, uploadBrandLogoMiddleware, normalizeBrandInput], add);
-brandRouter.put('/:id', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, normalizeBrandInput], update);
-brandRouter.patch('/:id', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, normalizeBrandInput], update);
+brandRouter.post(
+	'/',
+	[jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, uploadBrandLogoMiddleware, normalizeBrandInput],
+	add
+);
+brandRouter.put(
+	'/:id',
+	[jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, uploadBrandLogoMiddleware, normalizeBrandInput],
+	update
+);
+brandRouter.patch(
+	'/:id',
+	[jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, uploadBrandLogoMiddleware, normalizeBrandInput],
+	update
+);
 brandRouter.delete('/:id', [jwtAuth.tokenValidator, jwtAuth.restrictToAdmin], remove);
 
 brandRouter.put(

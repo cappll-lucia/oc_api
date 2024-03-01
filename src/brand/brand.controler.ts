@@ -59,6 +59,7 @@ export async function add(req: Request, res: Response) {
 		const newBrand = req.body.normalizeBrandInput;
 		newBrand.logo = req.file?.filename;
 		brandSchema.parse(newBrand);
+		const em = orm.em.fork();
 		const brand = em.create(Brand, req.body.normalizeBrandInput);
 		await em.flush();
 		res.status(201).json({ message: 'Brand successfully created.', data: brand });
@@ -77,8 +78,16 @@ export async function add(req: Request, res: Response) {
 
 export async function update(req: Request, res: Response) {
 	try {
+		const em = orm.em.fork();
 		const id = Number.parseInt(req.params.id);
 		const brandToUpdate = await em.findOneOrFail(Brand, { id });
+		if (req.file) {
+			if (brandToUpdate.logo) {
+				const prevLogoPath = `uploads/brandsLogos/${brandToUpdate.logo}`;
+				fs.unlinkSync(prevLogoPath);
+			}
+			brandToUpdate.logo = req.file.filename;
+		}
 		const assignedBrand = em.assign(brandToUpdate, req.body.normalizeBrandInput);
 		brandSchema.parse(assignedBrand);
 		await em.flush();
@@ -100,12 +109,12 @@ export async function remove(req: Request, res: Response) {
 	try {
 		const id = Number.parseInt(req.params.id);
 		const brand = await em.findOneOrFail(Brand, id);
-		if (brand.logo) {
-			const prevLogoPath = `uploads/brandsLogos/${brand.logo}`;
-			fs.unlinkSync(prevLogoPath);
-		}
 		try {
 			await em.removeAndFlush(brand);
+			if (brand.logo) {
+				const prevLogoPath = `uploads/brandsLogos/${brand.logo}`;
+				fs.unlinkSync(prevLogoPath);
+			}
 			res.status(200).json({ message: `Brand with id=${id} successfully deleted.` });
 		} catch (error: any) {
 			if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.sqlState === '23000') {
