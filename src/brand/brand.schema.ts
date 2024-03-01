@@ -9,4 +9,5 @@ export const brandSchema = z.object({
 		.max(30, {
 			message: 'El nombre de la marca debe tener entre 2 y 30 caracteres',
 		}),
+	logo: z.string({ required_error: 'Logo de la marca requerido' }),
 });

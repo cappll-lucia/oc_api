@@ -22,7 +22,7 @@ export async function findAll(req: Request, res: Response) {
 		const colors = await em.find(Color, {}, { populate: ['products'] });
 		res.status(200).json({ message: 'Colors found.', data: colors });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while fetching colors data.',
 			error: error.message,
 		});
@@ -35,7 +35,7 @@ export async function findOne(req: Request, res: Response) {
 		const color = await em.findOneOrFail(Color, { id }, { populate: ['products'] });
 		res.status(200).json({ message: 'Color found.', data: color });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while fetching color data.',
 			error: error.message,
 		});
@@ -51,12 +51,13 @@ export async function add(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while adding a new color.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while adding a new color.',
-			error: error.message,
-		});
 	}
 }
 
@@ -71,12 +72,13 @@ export async function update(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		}else{
+			res.status(400).json({
+				message: 'Something went wrong while updating color data.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while updating color data.',
-			error: error.message,
-		});
 	}
 }
 
@@ -97,7 +99,7 @@ export async function remove(req: Request, res: Response) {
 			}
 		}
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while removing color.',
 			error: error.message,
 		});

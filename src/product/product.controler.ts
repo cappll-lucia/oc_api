@@ -36,10 +36,10 @@ export function normalizeProductInput(req: Request, res: Response, next: NextFun
 
 export async function findAll(req: Request, res: Response) {
 	try {
-		const products = await em.find(Product, {}, { populate: ['colors.name', 'promotions'] });
+		const products = await em.find(Product, {}, { populate: ['colors.name', 'promotions', 'brand', 'category'] });
 		res.status(200).json({ message: 'Products found.', data: products });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while retrieving products data.',
 			error: error.message,
 		});
@@ -52,7 +52,7 @@ export async function findOne(req: Request, res: Response) {
 		const product = await em.findOneOrFail(Product, { id }, { populate: ['colors', 'promotions'] });
 		res.status(200).json({ message: 'Product found.', data: product });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while fetching product data.',
 			error: error.message,
 		});
@@ -72,7 +72,7 @@ export async function getProductColorData(req: Request, res: Response) {
 		data[0].images_url = JSON.parse(data[0].images_url);
 		res.status(200).json({ message: 'ProductColor data found.', data: data[0] });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while fetching product data.',
 			error: error.message,
 		});
@@ -92,12 +92,13 @@ export async function add(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while adding a new product.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while adding a new product.',
-			error: error.message,
-		});
 	}
 }
 
@@ -119,12 +120,13 @@ export async function update(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while updating product data.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while updating product data.',
-			error: error.message,
-		});
 	}
 }
 
@@ -142,7 +144,7 @@ export async function updateStock(req: Request, res: Response) {
 			message: 'Product-color stock successfully updated.',
 		});
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while updating product-color stock.',
 			error: error.message,
 		});
@@ -159,7 +161,7 @@ export async function remove(req: Request, res: Response) {
 		em.removeAndFlush(product);
 		res.status(200).json({ message: `Product with id=${id} successfully deleted.` });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while removing product.',
 			error: error.message,
 		});
@@ -175,7 +177,7 @@ export async function uploadProductImage(req: Request, res: Response) {
 		qb.select('images_url').where({ product: prodId, color: colorId });
 		const image_url_result = await qb.execute();
 		if (image_url_result.length === 0) {
-			res.status(404).json({
+			res.status(400).json({
 				message: 'No hay registros del producto con el color seleccionado.',
 			});
 			return;
@@ -192,7 +194,7 @@ export async function uploadProductImage(req: Request, res: Response) {
 			message: 'Product image successfully uploaded.',
 		});
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while uploading product image',
 			error: error.message,
 		});
@@ -205,7 +207,7 @@ export async function getImageFile(req: Request, res: Response) {
 		const path = `/uploads/products/${imageName}`;
 		res.sendFile(path, { root: '.' });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while getting product image',
 			error: error.message,
 		});

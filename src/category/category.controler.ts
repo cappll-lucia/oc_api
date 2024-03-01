@@ -23,7 +23,7 @@ export async function findAll(req: Request, res: Response) {
 		const categoties = await em.find(Category, {});
 		res.status(200).json({ message: 'Categories found', data: categoties });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while retrieving categories data.',
 			error: error.message,
 		});
@@ -36,7 +36,7 @@ export async function findOne(req: Request, res: Response) {
 		const category = await em.findOneOrFail(Category, { id });
 		res.status(200).json({ message: 'Category found', data: category });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while retrieving category data.',
 			error: error.message,
 		});
@@ -52,12 +52,13 @@ export async function add(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while adding a new category.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while adding a new category.',
-			error: error.message,
-		});
 	}
 }
 
@@ -75,12 +76,13 @@ export async function update(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while updating category data.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while updating category data.',
-			error: error.message,
-		});
 	}
 }
 
@@ -101,7 +103,7 @@ export async function remove(req: Request, res: Response) {
 			}
 		}
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while removing category.',
 			error: error.message,
 		});

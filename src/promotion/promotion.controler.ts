@@ -5,7 +5,6 @@ import moment from 'moment';
 import { promotionSchema } from './promotion.schema.js';
 import { ZodError } from 'zod';
 import multer from 'multer';
-import { CLIENT_RENEG_LIMIT } from 'tls';
 
 const storage = multer.diskStorage({
 	destination: (req: Request, file: Express.Multer.File, cb: (err: Error | null, destination: string) => void) => {
@@ -38,7 +37,7 @@ export async function findAll(req: Request, res: Response) {
 		const promotions = await em.find(Promotion, {}, { populate: ['products'] });
 		res.status(200).json({ message: 'Promotions found.', data: promotions });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while fetching promotions data.',
 			error: error.message,
 		});
@@ -51,7 +50,7 @@ export async function findOngoing(req: Request, res: Response) {
 		const ongoingPromotions = await em.find(Promotion, {}, { filters: { ongoingPromos: { now } } });
 		res.status(200).json({ message: 'Ongoing promotions found', data: ongoingPromotions });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while fetching promotions data.',
 			error: error.message,
 		});
@@ -65,7 +64,7 @@ export async function findOngoingForProduct(req: Request, res: Response) {
 		const ongoingPromotions = await em.find(Promotion, {}, { filters: { ongoingPromosForPoduct: { now, prodId } } });
 		res.status(200).json({ message: 'Ongoing promotions found', data: ongoingPromotions });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while fetching promotions data.',
 			error: error.message,
 		});
@@ -78,7 +77,7 @@ export async function findOne(req: Request, res: Response) {
 		const promotion = await em.findOneOrFail(Promotion, { id }, { populate: ['products'] });
 		res.status(200).json({ message: 'Promotion found.', data: promotion });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while fetching promotion data.',
 			error: error.message,
 		});
@@ -98,12 +97,13 @@ export async function add(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while adding a new promotion.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while adding a new promotion.',
-			error: error.message,
-		});
 	}
 }
 
@@ -125,12 +125,13 @@ export async function update(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while updating promotion data.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while updating promotion data.',
-			error: error.message,
-		});
 	}
 }
 
@@ -141,7 +142,7 @@ export async function remove(req: Request, res: Response) {
 		await em.removeAndFlush(promotion);
 		res.status(200).json({ message: `Promotion with id=${id} successfully deleted.` });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while removing promotion.',
 			error: error.message,
 		});
@@ -162,7 +163,7 @@ export async function uploadPromoBanner(req: Request, res: Response) {
 			message: 'Promotion banner successfully uploaded.',
 		});
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while uploading promotion banner.',
 			error: error.message,
 		});
@@ -175,7 +176,7 @@ export async function getBannerFile(req: Request, res: Response) {
 		const path = `/uploads/promotions/${bannerName}`;
 		res.sendFile(path, { root: '.' });
 	} catch (error: any) {
-		res.status(500).json({
+		res.status(400).json({
 			message: 'Something went wrong while getting promotion banner',
 			error: error.message,
 		});

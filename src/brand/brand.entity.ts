@@ -9,7 +9,7 @@ export class Brand extends BaseEntity {
 	name!: string;
 
 	@Property({ nullable: true })
-	logo?: Blob;
+	logo?: string;
 
 	@OneToMany(() => Product, (prod) => prod.brand, { cascade: [Cascade.ALL] })
 	products = new Collection<Product>(this);

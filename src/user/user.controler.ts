@@ -29,17 +29,18 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 			);
 			res.status(200).json({ message: 'Adentro!', token });
 		} else {
-			res.status(500).json({ message: 'Incorrect email or password.' });
+			res.status(400).json({ message: 'Incorrect email or password.' });
 		}
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while fetching users data.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while fetching users data.',
-			error: error.message,
-		});
 	}
 }
 
@@ -59,11 +60,12 @@ export async function signUp(req: Request, res: Response) {
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
-			res.status(500).json({ message: errors });
+			res.status(400).json({ message: errors });
+		} else {
+			res.status(400).json({
+				message: 'Something went wrong while adding a new user.',
+				error: error.message,
+			});
 		}
-		res.status(500).json({
-			message: 'Something went wrong while adding a new user.',
-			error: error.message,
-		});
 	}
 }

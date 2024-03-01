@@ -20,6 +20,15 @@ app.use((req, res, next) => {
 	RequestContext.create(orm.em, next);
 });
 
+if (process.env.APP_ENV === 'dev') {
+	app.use((req, res, next) => {
+		res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+		res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+		next();
+	});
+}
+
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/categories', categoryRouter);
@@ -28,7 +37,7 @@ app.use('/api/promotions', promotionRouter);
 app.use('/api/colors', colorRouter);
 
 app.use((_, res) => {
-	res.status(404).send({ message: 'Resource not found' });
+	res.status(400).send({ message: 'Resource not found' });
 });
 
 await syncSchema();
