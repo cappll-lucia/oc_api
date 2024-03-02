@@ -11,6 +11,7 @@ import {
 	uploadProductImage,
 	uploadProductImageMiddleware,
 	getImageFile,
+	deleteProducImage,
 } from './product.controler.js';
 import { jwtAuth } from '../shared/tokenValidator.js';
 
@@ -33,6 +34,12 @@ productRouter.put(
 	'/upload-image/:prodId/:colorId',
 	[jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, uploadProductImageMiddleware],
 	uploadProductImage
+);
+
+productRouter.put(
+	'/delete-image/:prodId/:colorId/:imageName',
+	[jwtAuth.tokenValidator, jwtAuth.restrictToAdmin, uploadProductImageMiddleware],
+	deleteProducImage
 );
 
 productRouter.get('/image/:imageName', getImageFile);

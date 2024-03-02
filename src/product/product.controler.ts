@@ -5,6 +5,7 @@ import { ProductColor } from './productColor.entity.js';
 import { productSchema } from './product.schema.js';
 import { ZodError } from 'zod';
 import multer from 'multer';
+import fs from 'fs';
 
 const storage = multer.diskStorage({
 	destination: (req: Request, file: Express.Multer.File, cb: (err: Error | null, destination: string) => void) => {
@@ -196,6 +197,41 @@ export async function uploadProductImage(req: Request, res: Response) {
 	} catch (error: any) {
 		res.status(400).json({
 			message: 'Something went wrong while uploading product image',
+			error: error.message,
+		});
+	}
+}
+
+export async function deleteProducImage(req: Request, res: Response) {
+	try {
+		const prodId = Number.parseInt(req.params.prodId);
+		const colorId = Number.parseInt(req.params.colorId);
+		const imageName = req.params.imageName;
+		const qb = orm.em.createQueryBuilder(ProductColor);
+		qb.select('images_url').where({ product: prodId, color: colorId });
+		const image_url_result = await qb.execute();
+		if (image_url_result.length === 0) {
+			res.status(400).json({
+				message: 'No hay registros de la imagen seleccionada para eliminar.',
+			});
+			return;
+		}
+		let image_url_list = JSON.parse(image_url_result[0].images_url);
+		image_url_list = image_url_list.filter((url: string) => url != imageName);
+		const qb2 = orm.em.createQueryBuilder(ProductColor);
+		qb2.update({ images_url: JSON.stringify(image_url_list) }).where({
+			product: prodId,
+			color: colorId,
+		});
+		await qb2.execute();
+		const imagePath = `uploads/products/${imageName}`;
+		fs.unlinkSync(imagePath);
+		res.status(201).json({
+			message: 'Product image successfully deleted.',
+		});
+	} catch (error: any) {
+		res.status(400).json({
+			message: 'Something went wrong while getting product image',
 			error: error.message,
 		});
 	}
