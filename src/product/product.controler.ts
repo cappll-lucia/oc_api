@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { orm } from '../shared/db/conn.orm.js';
 import { Product } from './product.entity.js';
+import { Color } from '../color/color.entity.js';
 import { ProductColor } from './productColor.entity.js';
 import { productSchema } from './product.schema.js';
 import { ZodError } from 'zod';
@@ -60,6 +61,24 @@ export async function findOne(req: Request, res: Response) {
 	}
 }
 
+export async function getProductMetadata(req: Request, res: Response) {
+	try {
+		const prodId = Number.parseInt(req.params.prodId);
+		const qb = em.createQueryBuilder(ProductColor, 'pc');
+		qb.select(['c.name', 'c.background', 'pc.*']).leftJoin('color', 'c').where({ 'pc.product_id': prodId });
+		const data = await qb.execute();
+		data.forEach((item: any) => {
+			item.images_url = JSON.parse(item.images_url);
+		});
+		res.status(200).json({ message: 'Product metadata found.', data: data });
+	} catch (error: any) {
+		res.status(400).json({
+			message: 'Something went wrong while fetching product data.',
+			error: error.message,
+		});
+	}
+}
+
 export async function getProductColorData(req: Request, res: Response) {
 	try {
 		const prodId = Number.parseInt(req.params.prodId);
@@ -108,7 +127,7 @@ export async function update(req: Request, res: Response) {
 		const id = Number.parseInt(req.params.id);
 		const productToUpdate = await em.findOneOrFail(Product, { id });
 		const assignedProduct = em.assign(productToUpdate, req.body.normalizeProductInput);
-		await productToUpdate.colors.load();
+		await assignedProduct.colors.load();
 		productSchema.parse({
 			...assignedProduct,
 			colors: assignedProduct.colors.getItems().map((color: any) => color.id),
@@ -169,12 +188,33 @@ export async function remove(req: Request, res: Response) {
 	}
 }
 
-export const uploadProductImageMiddleware = upload.single('image');
-export async function uploadProductImage(req: Request, res: Response) {
+export async function removeProductColor(req: Request, res: Response) {
 	try {
 		const prodId = Number.parseInt(req.params.prodId);
 		const colorId = Number.parseInt(req.params.colorId);
-		const qb = orm.em.createQueryBuilder(ProductColor);
+		const productColorRow = await em.findOneOrFail(ProductColor, { product: prodId, color: colorId });
+		const image_url_list = JSON.parse(productColorRow.images_url);
+		await em.removeAndFlush(productColorRow);
+		image_url_list.forEach(async (imageName: string) => {
+			const imagePath = `uploads/products/${imageName}`;
+			fs.unlinkSync(imagePath);
+		});
+		res.status(200).json({ message: 'Product color successfully deleted.' });
+	} catch (error: any) {
+		res.status(400).json({
+			message: 'Something went wrong while removing product.',
+			error: error.message,
+		});
+	}
+}
+
+export const uploadProductImageMiddleware = upload.single('image');
+export async function uploadProductImage(req: Request, res: Response) {
+	try {
+		const em = orm.em.fork();
+		const prodId = Number.parseInt(req.params.prodId);
+		const colorId = Number.parseInt(req.params.colorId);
+		const qb = em.createQueryBuilder(ProductColor);
 		qb.select('images_url').where({ product: prodId, color: colorId });
 		const image_url_result = await qb.execute();
 		if (image_url_result.length === 0) {
@@ -185,7 +225,7 @@ export async function uploadProductImage(req: Request, res: Response) {
 		}
 		const image_url_list = JSON.parse(image_url_result[0].images_url);
 		image_url_list.push(req.file?.filename);
-		const qb2 = orm.em.createQueryBuilder(ProductColor);
+		const qb2 = em.createQueryBuilder(ProductColor);
 		qb2.update({ images_url: JSON.stringify(image_url_list) }).where({
 			product: prodId,
 			color: colorId,

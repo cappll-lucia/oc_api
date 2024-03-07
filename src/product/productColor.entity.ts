@@ -15,5 +15,5 @@ export class ProductColor {
 	stock!: number;
 
 	@Property({ default: '[]', nullable: false })
-	images_url?: string;
+	images_url!: string;
 }

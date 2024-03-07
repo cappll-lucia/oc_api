@@ -3,7 +3,11 @@
 GET http://localhost:3000/api/products
 
 ### GET ONE
-GET http://localhost:3000/api/products/3
+GET http://localhost:3000/api/products/4
+
+### GET COLORS, STOCK AND IMAGES
+GET http://localhost:3000/api/products/data/4
+
 
 
 ### GET STOCK AND IMAGES
@@ -14,7 +18,7 @@ GET http://localhost:3000/api/products/data/3/4
 ### CREATE
 POST https://ocapi-production-5d91.up.railway.app/api/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODQyOTg5MiwiZXhwIjoxNzA4NDQwNjkyfQ.V5WAPDTiAw5BNfP0L3W93IL2kIKaSej1XdOyk7LqIRQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwOTgxMDgyNCwiZXhwIjoxNzA5ODIxNjI0fQ.cpFb6PTr3UXQRaZk6imCWIX8A1Kb1S5lj8W1zX6hleg
 
 {
     "name": "Woah",
@@ -25,16 +29,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY
 }
 
 ### UPDATE
-PUT https://ocapi-production-5d91.up.railway.app/api/products/4
+PUT http://localhost:3000/api/products/4
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwODM2OTUwMSwiZXhwIjoxNzA4MzgwMzAxfQ.PXnmDDQdHEGPJr-JkSN8OnAn0wjudcjK4mQmIXM_NAA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2lhY2FwcGxsQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Ikx1Y8OtYSIsImxhc3ROYW1lIjoiQ2FwcGVsbGluaSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcwOTgxMDgyNCwiZXhwIjoxNzA5ODIxNjI0fQ.cpFb6PTr3UXQRaZk6imCWIX8A1Kb1S5lj8W1zX6hleg
 
 {
     "name": "Dapper",
     "price": 90000,
     "category": 2,
     "brand": 2,
-    "colors": [4,5],
+    "colors": [4],
     "promotions": [9]
 }
 
