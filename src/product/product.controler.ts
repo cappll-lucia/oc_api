@@ -175,6 +175,20 @@ export async function remove(req: Request, res: Response) {
 	try {
 		const id = Number.parseInt(req.params.id);
 		const product = await em.findOneOrFail(Product, { id }, { populate: ['colors'] });
+		const qb = orm.em.createQueryBuilder(ProductColor);
+		qb.select('*').where({
+			product: id,
+		});
+		const productMetadata = await qb.execute();
+		productMetadata.forEach((dataRow: ProductColor) => {
+			if (dataRow.images_url != '[]') {
+				const image_url_list = JSON.parse(dataRow.images_url);
+				image_url_list.forEach((imageName: string) => {
+					const imagePath = `uploads/products/${imageName}`;
+					fs.unlinkSync(imagePath);
+				});
+			}
+		});
 		if (product.colors.count() > 0) {
 			await em.nativeDelete(ProductColor, { product });
 		}
