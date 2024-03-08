@@ -45,27 +45,5 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function signUp(req: Request, res: Response) {
-	try {
-		const { email, password, firstName, lastName, role } = req.body as {
-			email: string;
-			password: string;
-			firstName: string;
-			lastName: string;
-			role: string;
-		};
-		signUpSchema.parse({ email, password, firstName, lastName, role });
-		const user = await em.create(User, req.body);
-		await em.flush();
-		res.status(201).json({ message: 'User successfully created.', data: user });
-	} catch (error: any) {
-		if (error instanceof ZodError) {
-			const { fieldErrors: errors } = error.flatten();
-			res.status(400).json({ message: errors });
-		} else {
-			res.status(400).json({
-				message: 'Something went wrong while adding a new user.',
-				error: error.message,
-			});
-		}
-	}
+	res.status(400).json({ message: 'Operación no disponible' });
 }
