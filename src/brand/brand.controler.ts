@@ -32,10 +32,10 @@ export function normalizeBrandInput(req: Request, res: Response, next: NextFunct
 export async function findAll(req: Request, res: Response) {
 	try {
 		const brands = await em.find(Brand, {});
-		res.status(200).json({ message: 'Brands found.', data: brands });
+		res.status(200).json({ message: 'Marcas encontradas.', data: brands });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while retrieving brands data.',
+		res.status(500).json({
+			message: 'Algo salió mal al obtener los datos de las marcas.',
 			error: error.message,
 		});
 	}
@@ -45,10 +45,10 @@ export async function findOne(req: Request, res: Response) {
 	try {
 		const id = Number.parseInt(req.params.id);
 		const brand = await em.findOneOrFail(Brand, { id });
-		res.status(200).json({ message: 'Brand found.', data: brand });
+		res.status(200).json({ message: 'Marca encontrada', data: brand });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while retrieving brands data.',
+		res.status(500).json({
+			message: 'Algo salió mal al obtener los datos de la marca.',
 			error: error.message,
 		});
 	}
@@ -62,14 +62,14 @@ export async function add(req: Request, res: Response) {
 		const em = orm.em.fork();
 		const brand = em.create(Brand, req.body.normalizeBrandInput);
 		await em.flush();
-		res.status(201).json({ message: 'Brand successfully created.', data: brand });
+		res.status(201).json({ message: 'Marca creada exitosamente.', data: brand });
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
 			res.status(400).json({ message: errors });
 		} else {
-			res.status(400).json({
-				message: 'Something went wrong while adding a new brand.',
+			res.status(500).json({
+				message: 'Algo salió mal al crear una nueva marca.',
 				error: error.message,
 			});
 		}
@@ -91,14 +91,14 @@ export async function update(req: Request, res: Response) {
 		const assignedBrand = em.assign(brandToUpdate, req.body.normalizeBrandInput);
 		brandSchema.parse(assignedBrand);
 		await em.flush();
-		res.status(201).json({ message: 'Brand successfully updated.', data: brandToUpdate });
+		res.status(200).json({ message: 'Marca actualizada exitosamente.', data: brandToUpdate });
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
 			res.status(400).json({ message: errors });
 		} else {
-			res.status(400).json({
-				message: 'Something went wrong while updating brand data.',
+			res.status(500).json({
+				message: 'Algo salió mal al actualizar la marca',
 				error: error.message,
 			});
 		}
@@ -115,19 +115,19 @@ export async function remove(req: Request, res: Response) {
 				const prevLogoPath = `uploads/brandsLogos/${brand.logo}`;
 				fs.unlinkSync(prevLogoPath);
 			}
-			res.status(200).json({ message: `Brand with id=${id} successfully deleted.` });
+			res.status(200).json({ message: `Marca con id=${id} eliminada exitosamente.` });
 		} catch (error: any) {
 			if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.sqlState === '23000') {
 				res.status(400).json({
-					message: 'Unable to delete brand due to associated products',
+					message: 'No es posible eliminar el color debido a que tiene productos asociados.',
 				});
 			} else {
 				throw error;
 			}
 		}
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while removing brand.',
+		res.status(500).json({
+			message: 'Algo salió mal al eliminar la marca',
 			error: error.message,
 		});
 	}
@@ -145,11 +145,11 @@ export async function uploadBrandLogo(req: Request, res: Response) {
 		}
 		brand.logo = req.file?.filename;
 		await em.flush();
-		res.status(201).json({
+		res.status(200).json({
 			message: 'Logo de la marca actualizado con éxito',
 		});
 	} catch (error: any) {
-		res.status(400).json({
+		res.status(500).json({
 			message: 'Algo salió mal al actualizar el logo de la marca.',
 			error: error.message,
 		});
@@ -162,8 +162,8 @@ export async function getLogoImage(req: Request, res: Response) {
 		const path = `/uploads/brandsLogos/${logoFileName}`;
 		res.sendFile(path, { root: '.' });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while getting brand logo image.',
+		res.status(500).json({
+			message: 'Algo salió mal al obtener la imagen del logo.',
 			error: error.message,
 		});
 	}

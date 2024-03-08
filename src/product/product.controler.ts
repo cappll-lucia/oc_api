@@ -39,10 +39,10 @@ export function normalizeProductInput(req: Request, res: Response, next: NextFun
 export async function findAll(req: Request, res: Response) {
 	try {
 		const products = await em.find(Product, {}, { populate: ['colors.name', 'promotions', 'brand', 'category'] });
-		res.status(200).json({ message: 'Products found.', data: products });
+		res.status(200).json({ message: 'Productos encontrados', data: products });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while retrieving products data.',
+		res.status(500).json({
+			message: 'Algo salió mal al obtener los datos de los productos.',
 			error: error.message,
 		});
 	}
@@ -52,10 +52,10 @@ export async function findOne(req: Request, res: Response) {
 	try {
 		const id = Number.parseInt(req.params.id);
 		const product = await em.findOneOrFail(Product, { id }, { populate: ['colors', 'promotions'] });
-		res.status(200).json({ message: 'Product found.', data: product });
+		res.status(200).json({ message: 'Producto encontrado.', data: product });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while fetching product data.',
+		res.status(500).json({
+			message: 'Algo salió mal al obtener los datos del producto.',
 			error: error.message,
 		});
 	}
@@ -70,10 +70,10 @@ export async function getProductMetadata(req: Request, res: Response) {
 		data.forEach((item: any) => {
 			item.images_url = JSON.parse(item.images_url);
 		});
-		res.status(200).json({ message: 'Product metadata found.', data: data });
+		res.status(200).json({ message: 'Datos de producto encontrados.', data: data });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while fetching product data.',
+		res.status(500).json({
+			message: 'Algo salió mal al obtener los datos del producto.',
 			error: error.message,
 		});
 	}
@@ -90,10 +90,10 @@ export async function getProductColorData(req: Request, res: Response) {
 		});
 		const data = await qb.execute();
 		data[0].images_url = JSON.parse(data[0].images_url);
-		res.status(200).json({ message: 'ProductColor data found.', data: data[0] });
+		res.status(200).json({ message: 'Data Producto-Color encontrada.', data: data[0] });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while fetching product data.',
+		res.status(500).json({
+			message: 'Algo salió mal al obtener los datos del producto.',
 			error: error.message,
 		});
 	}
@@ -108,14 +108,14 @@ export async function add(req: Request, res: Response) {
 		});
 		const product = await em.create(Product, req.body.normalizeProductInput);
 		await em.flush();
-		res.status(201).json({ message: 'Product successfully created.', data: product });
+		res.status(201).json({ message: 'Producto creado exitosamente.', data: product });
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
 			res.status(400).json({ message: errors });
 		} else {
-			res.status(400).json({
-				message: 'Something went wrong while adding a new product.',
+			res.status(500).json({
+				message: 'Algo salió mal al crear un nuevo producto.',
 				error: error.message,
 			});
 		}
@@ -133,8 +133,8 @@ export async function update(req: Request, res: Response) {
 			colors: assignedProduct.colors.getItems().map((color: any) => color.id),
 		});
 		await em.flush();
-		res.status(201).json({
-			message: 'Product successfully updated.',
+		res.status(200).json({
+			message: 'Producto actualizado exitosamente',
 			data: productToUpdate,
 		});
 	} catch (error: any) {
@@ -142,8 +142,8 @@ export async function update(req: Request, res: Response) {
 			const { fieldErrors: errors } = error.flatten();
 			res.status(400).json({ message: errors });
 		} else {
-			res.status(400).json({
-				message: 'Something went wrong while updating product data.',
+			res.status(500).json({
+				message: 'Algo salió mal al actualizar el producto.',
 				error: error.message,
 			});
 		}
@@ -160,12 +160,12 @@ export async function updateStock(req: Request, res: Response) {
 			color: colorId,
 		});
 		await qb.execute();
-		res.status(201).json({
-			message: 'Product-color stock successfully updated.',
+		res.status(200).json({
+			message: 'Stock del producto actualizado exitosamente.',
 		});
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while updating product-color stock.',
+		res.status(500).json({
+			message: 'Algo salió mal al actualizar el stock del producto.',
 			error: error.message,
 		});
 	}
@@ -193,10 +193,10 @@ export async function remove(req: Request, res: Response) {
 			await em.nativeDelete(ProductColor, { product });
 		}
 		em.removeAndFlush(product);
-		res.status(200).json({ message: `Product with id=${id} successfully deleted.` });
+		res.status(200).json({ message: `Poducto con id=${id} eliminado exitosamente.` });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while removing product.',
+		res.status(500).json({
+			message: 'Algo salió mal al eliminar el producto.',
 			error: error.message,
 		});
 	}
@@ -213,10 +213,10 @@ export async function removeProductColor(req: Request, res: Response) {
 			const imagePath = `uploads/products/${imageName}`;
 			fs.unlinkSync(imagePath);
 		});
-		res.status(200).json({ message: 'Product color successfully deleted.' });
+		res.status(200).json({ message: 'Color eliminado para el producto exitosamente.' });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while removing product.',
+		res.status(500).json({
+			message: 'Algo salió mal al eliminar el color para el producto.',
 			error: error.message,
 		});
 	}
@@ -232,7 +232,7 @@ export async function uploadProductImage(req: Request, res: Response) {
 		qb.select('images_url').where({ product: prodId, color: colorId });
 		const image_url_result = await qb.execute();
 		if (image_url_result.length === 0) {
-			res.status(400).json({
+			res.status(404).json({
 				message: 'No hay registros del producto con el color seleccionado.',
 			});
 			return;
@@ -246,11 +246,11 @@ export async function uploadProductImage(req: Request, res: Response) {
 		});
 		await qb2.execute();
 		res.status(201).json({
-			message: 'Product image successfully uploaded.',
+			message: 'Imagen del producto almacenada exitosamente.',
 		});
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while uploading product image',
+		res.status(500).json({
+			message: 'Algo salió mal al almacenar la imagen del producto',
 			error: error.message,
 		});
 	}
@@ -265,7 +265,7 @@ export async function deleteProducImage(req: Request, res: Response) {
 		qb.select('images_url').where({ product: prodId, color: colorId });
 		const image_url_result = await qb.execute();
 		if (image_url_result.length === 0) {
-			res.status(400).json({
+			res.status(404).json({
 				message: 'No hay registros de la imagen seleccionada para eliminar.',
 			});
 			return;
@@ -281,11 +281,11 @@ export async function deleteProducImage(req: Request, res: Response) {
 		const imagePath = `uploads/products/${imageName}`;
 		fs.unlinkSync(imagePath);
 		res.status(201).json({
-			message: 'Product image successfully deleted.',
+			message: 'Imagen del producto eliminada exitosamente',
 		});
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while getting product image',
+		res.status(500).json({
+			message: 'Algo salió mal al eliminar la imagen del producto.',
 			error: error.message,
 		});
 	}
@@ -297,8 +297,8 @@ export async function getImageFile(req: Request, res: Response) {
 		const path = `/uploads/products/${imageName}`;
 		res.sendFile(path, { root: '.' });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while getting product image',
+		res.status(500).json({
+			message: 'Algo salió mal al obtener la imagen del producto',
 			error: error.message,
 		});
 	}

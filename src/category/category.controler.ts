@@ -21,10 +21,10 @@ export function normalizeCategoryInput(req: Request, res: Response, next: NextFu
 export async function findAll(req: Request, res: Response) {
 	try {
 		const categoties = await em.find(Category, {});
-		res.status(200).json({ message: 'Categories found', data: categoties });
+		res.status(200).json({ message: 'Categorías encontradas.', data: categoties });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while retrieving categories data.',
+		res.status(500).json({
+			message: 'Algo salió mal al recuperar los datos de las categorías.',
 			error: error.message,
 		});
 	}
@@ -34,10 +34,10 @@ export async function findOne(req: Request, res: Response) {
 	try {
 		const id = Number.parseInt(req.params.id);
 		const category = await em.findOneOrFail(Category, { id });
-		res.status(200).json({ message: 'Category found', data: category });
+		res.status(200).json({ message: 'Categoría encontrada', data: category });
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while retrieving category data.',
+		res.status(500).json({
+			message: 'Algo salió mal al recuperar los datos de la categoría.',
 			error: error.message,
 		});
 	}
@@ -48,14 +48,14 @@ export async function add(req: Request, res: Response) {
 		categorySchema.parse(req.body.normalizeCategoryInput);
 		const category = em.create(Category, req.body.normalizeCategoryInput);
 		await em.flush();
-		res.status(201).json({ message: 'Category successfully created', data: category });
+		res.status(201).json({ message: 'Categoría creada exitosamente', data: category });
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
 			res.status(400).json({ message: errors });
 		} else {
-			res.status(400).json({
-				message: 'Something went wrong while adding a new category.',
+			res.status(500).json({
+				message: 'Algo salió mal al crear nueva categoría.',
 				error: error.message,
 			});
 		}
@@ -70,7 +70,7 @@ export async function update(req: Request, res: Response) {
 		categorySchema.parse(assignedCateg);
 		await em.flush();
 		res.status(200).json({
-			message: 'Product successfully updated',
+			message: 'Producto actualizado exitosamente',
 			data: categoryToUpdate,
 		});
 	} catch (error: any) {
@@ -78,8 +78,8 @@ export async function update(req: Request, res: Response) {
 			const { fieldErrors: errors } = error.flatten();
 			res.status(400).json({ message: errors });
 		} else {
-			res.status(400).json({
-				message: 'Something went wrong while updating category data.',
+			res.status(500).json({
+				message: 'Algo salió mal al actualizar la categoría',
 				error: error.message,
 			});
 		}
@@ -92,19 +92,19 @@ export async function remove(req: Request, res: Response) {
 		const category = em.getReference(Category, id);
 		try {
 			await em.removeAndFlush(category);
-			res.status(200).json({ message: `Category with id=${id} successfully deleted.` });
+			res.status(200).json({ message: `Categoría con id=${id} eliminada exitosamente` });
 		} catch (error: any) {
 			if (error.code === 'ER_ROW_IS_REFERENCED_2' || error.sqlState === '23000') {
 				res.status(400).json({
-					message: 'Unable to delete category due to associated products',
+					message: 'No es posible eliminar la categoría debido a que tiene productos asociados.',
 				});
 			} else {
 				throw error;
 			}
 		}
 	} catch (error: any) {
-		res.status(400).json({
-			message: 'Something went wrong while removing category.',
+		res.status(500).json({
+			message: 'Algo salió mal al eliminar la categoría',
 			error: error.message,
 		});
 	}

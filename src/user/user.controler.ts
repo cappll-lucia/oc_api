@@ -27,17 +27,17 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 					expiresIn: 10800,
 				}
 			);
-			res.status(200).json({ message: 'Adentro!', token });
+			res.status(200).json({ message: 'Bienvenido!', token });
 		} else {
-			res.status(400).json({ message: 'Incorrect email or password.' });
+			res.status(401).json({ message: 'Email y/o contraseña incorrectos.' });
 		}
 	} catch (error: any) {
 		if (error instanceof ZodError) {
 			const { fieldErrors: errors } = error.flatten();
 			res.status(400).json({ message: errors });
 		} else {
-			res.status(400).json({
-				message: 'Something went wrong while fetching users data.',
+			res.status(500).json({
+				message: 'Algo salió mal al iniciar sesión.',
 				error: error.message,
 			});
 		}
@@ -45,5 +45,5 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function signUp(req: Request, res: Response) {
-	res.status(400).json({ message: 'Operación no disponible' });
+	res.status(403).json({ message: 'Operación no disponible' });
 }
