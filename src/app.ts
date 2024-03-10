@@ -23,7 +23,16 @@ app.use((req, res, next) => {
 if (process.env.APP_ENV === 'dev') {
 	app.use((req, res, next) => {
 		res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+		res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+		next();
+	});
+}
+
+if (process.env.APP_ENV === 'production') {
+	app.use((req, res, next) => {
+		res.setHeader('Access-Control-Allow-Origin', 'http://vps-3961237-x.dattaweb.com');
+		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
 		res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 		next();
 	});
@@ -44,5 +53,5 @@ await syncSchema();
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-	console.log(`Server running at http://localhost:${PORT}`);
+	console.log(`Server running at http://${process.env.APP_HOST}:${PORT}`);
 });
