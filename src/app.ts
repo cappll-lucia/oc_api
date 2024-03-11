@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import dotenv from 'dotenv';
 import express from 'express';
+import cors from 'cors';
 import { orm, syncSchema } from './shared/db/conn.orm.js';
 import { RequestContext } from '@mikro-orm/core';
 import { userRouter } from './user/user.routes.js';
@@ -29,14 +30,13 @@ if (process.env.APP_ENV === 'dev') {
 	});
 }
 
-if (process.env.APP_ENV === 'production') {
-	app.use((req, res, next) => {
-		res.setHeader('Access-Control-Allow-Origin', 'http://vps-3961237-x.dattaweb.com');
-		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-		res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-		next();
-	});
-}
+const corsConfig = {
+	origin: 'http://vps-3961237-x.dattaweb.com',
+	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+	allowedHeaders: 'Content-Type,Authorization',
+};
+
+app.use(cors(corsConfig));
 
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
